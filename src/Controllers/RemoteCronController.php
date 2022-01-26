@@ -15,7 +15,7 @@ class RemoteCronController extends Controller
         try {
             Artisan::queue($command, $parameters);
         } catch (\Throwable $th) {
-            response()->json(['message' => $th->getMessage()], Response::HTTP_BAD_REQUEST);
+            return response()->json(['message' => $th->getMessage()], Response::HTTP_BAD_REQUEST);
         }
         return response()->json(['message' => 'Command is Running']);
     }
