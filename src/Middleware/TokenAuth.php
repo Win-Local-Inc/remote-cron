@@ -2,9 +2,7 @@
 
 namespace WinLocal\RemoteCron\Middleware;
 
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class TokenAuth
 {
@@ -21,7 +19,7 @@ class TokenAuth
         }
 
         if (strcmp(config('remotecron.token'), $token) !== 0) {
-            throw new AuthorizationException();
+            abort(403, 'Not Authorized');
         }
  
         return $next($request);
