@@ -1,0 +1,46 @@
+{
+    "name": "win-local-inc/remote-cron",
+    "description": "A package for remote cron.",
+    "keywords": [
+        "remote-cron"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Piotr Kiszka",
+            "email": "piotrek@lifeinmobile.com",
+            "role": "Programmer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WinLocal\\RemoteCron\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "WinLocal\\RemoteCron\\RemoteCronServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "prefer-stable": true,
+    "require": {
+        "php": ">=5.6",
+        "ext-json": "*",
+        "illuminate/support": "^5.4|^6.0|^7.0|^8.0",
+        "illuminate/http": "^5.4|^6.0|^7.0|^8.0",
+        "illuminate/console": "^5.4|^6.0|^7.0|^8.0",
+        "illuminate/redis": "^5.4|^6.0|^7.0|^8.0",
+        "nesbot/carbon": "^1.26.3|^2.0"
+    }
+}
