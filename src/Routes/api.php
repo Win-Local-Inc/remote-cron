@@ -1,6 +1,6 @@
 <?php
 
-use WinLocal\RemoteCron\Controllers\RemoteCommandController;
+use WinLocal\RemoteCron\Controllers\RemoteCronController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get(config('remotecron.path'), [RemoteCommandController::class, 'cron'])
+Route::get(config('remotecron.path'), [RemoteCronController::class, 'cron'])
     ->middleware(config('remotecron.middleware'));
