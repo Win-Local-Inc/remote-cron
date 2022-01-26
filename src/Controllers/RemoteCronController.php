@@ -11,7 +11,7 @@ class RemoteCronController extends Controller
     public function cron(Request $request)
     {
         $command = $request->input('command');
-        $parameters = $request->input('parameters') ?? [];
+        $parameters = json_decode($request->input('parameters'), true) ?? [];
         try {
             Artisan::queue($command, $parameters);
         } catch (\Throwable $th) {
