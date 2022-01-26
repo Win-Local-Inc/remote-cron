@@ -5,7 +5,7 @@ namespace WinLocal\RemoteCron\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
-class RemoteCommandController extends Controller
+class RemoteCronController extends Controller
 {
     public function cron(Request $request)
     {
