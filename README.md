@@ -12,7 +12,7 @@
     'path' => env('WINLOCAL_CRON_PATH', 'remote/cron'),
     'queue_connection' => env('WINLOCAL_CRON_QUEUE_CONNECTION', 'redis'),
     'interval' => env('WINLOCAL_CRON_THROTTLE_INTERVAL', 30),
-    'token' => env('WINLOCAL_CRON_TOKEN', 'SET UP TOKEN')
+    'token' => env('WINLOCAL_CRON_TOKEN')
 ]
 ```
 
@@ -35,7 +35,7 @@ WINLOCAL_CRON_QUEUE_CONNECTION=
 
 cron_services
 name: Advert
-url: https://ad.stage.winlocal.com/remote/cron 
+url: https://sericename.stage.com/remote/cron 
 token: ***token***
 
 cron_jobs

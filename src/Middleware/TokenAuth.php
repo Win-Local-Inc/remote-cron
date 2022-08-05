@@ -18,10 +18,13 @@ class TokenAuth
             $token = $request->bearerToken();
         }
 
-        if (strcmp(config('remotecron.token'), $token) !== 0) {
+        $token = trim($token);
+        $configToken = trim(config('remotecron.token'));
+
+        if (!$token || !$configToken || strcmp($configToken, $token) !== 0) {
             abort(403, 'Not Authorized');
         }
- 
+
         return $next($request);
     }
 }
