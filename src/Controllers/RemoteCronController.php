@@ -13,7 +13,7 @@ class RemoteCronController extends Controller
         $command = $request->input('command');
         $parameters = json_decode($request->input('parameters'), true) ?? [];
         try {
-            Artisan::queue($command, $parameters);
+            Artisan::queue($command, $parameters)->onConnection(config('remotecron.queue_connection'));
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], Response::HTTP_BAD_REQUEST);
         }
