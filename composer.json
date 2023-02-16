@@ -35,7 +35,7 @@
     },
     "prefer-stable": true,
     "require": {
-        "php": ">=8.0",
+        "php": "^7.1|^8.0",
         "ext-json": "*",
         "illuminate/support": "^5.4|^6.0|^7.0|^8.0|^9.0|^10.0",
         "illuminate/http": "^5.4|^6.0|^7.0|^8.0|^9.0|^10.0",
