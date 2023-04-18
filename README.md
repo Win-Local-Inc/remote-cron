@@ -45,3 +45,7 @@ parameters:
 schedule: */10 * * * *
 
 ```
+
+- to run tests on package
+
+`vendor/bin/testbench package:test --configuration=tests/phpunit.xml`

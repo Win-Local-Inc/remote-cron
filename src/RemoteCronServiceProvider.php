@@ -2,6 +2,8 @@
 
 namespace WinLocal\RemoteCron;
 
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class RemoteCronServiceProvider extends ServiceProvider
@@ -9,7 +11,7 @@ class RemoteCronServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configure();
-
+        $this->configureRateLimiting();
         $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
     }
 
@@ -21,5 +23,10 @@ class RemoteCronServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../config/remotecron.php' => $configPath,
         ], 'config');
+    }
+
+    protected function configureRateLimiting(): void
+    {
+        RateLimiter::for('cron', fn () => Limit::perMinute(1)->by('default'));
     }
 }

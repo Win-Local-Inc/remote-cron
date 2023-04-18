@@ -21,7 +21,7 @@ class TokenAuth
         $token = trim($token);
         $configToken = trim(config('remotecron.token'));
 
-        if (!$token || !$configToken || strcmp($configToken, $token) !== 0) {
+        if (! $token || ! $configToken || strcmp($configToken, $token) !== 0) {
             abort(403, 'Not Authorized');
         }
 

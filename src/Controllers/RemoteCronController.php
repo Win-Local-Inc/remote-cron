@@ -17,6 +17,7 @@ class RemoteCronController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], Response::HTTP_BAD_REQUEST);
         }
+
         return response()->json(['message' => 'Command is Running']);
     }
 }

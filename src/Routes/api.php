@@ -1,8 +1,7 @@
 <?php
 
-use WinLocal\RemoteCron\Controllers\RemoteCronController;
-
 use Illuminate\Support\Facades\Route;
+use WinLocal\RemoteCron\Controllers\RemoteCronController;
 
 /*
 |--------------------------------------------------------------------------
