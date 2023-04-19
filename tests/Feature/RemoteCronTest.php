@@ -11,7 +11,7 @@ class RemoteCronTest extends TestCase
 
     public function testRunCronSuccess()
     {
-        $this->createTestCommand(' {info}');
+        $this->createTestCommand('{info}');
         $token = uniqid();
         config(['remotecron.token' => $token]);
 
@@ -29,7 +29,7 @@ class RemoteCronTest extends TestCase
         $this->assertJsonStringEqualsJsonString('{"message":"Command is Running"}', $content);
     }
 
-    public function testRateLimitOccur()
+    public function testRateLimitError()
     {
         $this->createTestCommand();
         $token = uniqid();
@@ -50,8 +50,76 @@ class RemoteCronTest extends TestCase
         $this->assertStringContainsString('"message": "Too Many Attempts.",', $content);
     }
 
+    public function testTokenMismatchError()
+    {
+        $this->createTestCommand();
+        $token1 = uniqid();
+        $token2 = uniqid();
+        config(['remotecron.token' => $token1]);
+
+        $response = $this->json('get', 'remote/cron', [
+            'token' => $token2,
+            'command' => self::TestCommand,
+        ]);
+
+        $response->assertStatus(403);
+        $content = $response->getContent();
+        $this->assertJson($content);
+        $this->assertStringContainsString('"message": "Not Auhorized",', $content);
+    }
+
+    public function testTokenNotSetOnServerError()
+    {
+        $this->createTestCommand();
+        $token = uniqid();
+
+        $response = $this->json('get', 'remote/cron', [
+            'token' => $token,
+            'command' => self::TestCommand,
+        ]);
+
+        $response->assertStatus(403);
+        $content = $response->getContent();
+        $this->assertJson($content);
+        $this->assertStringContainsString('"message": "Not Auhorized",', $content);
+    }
+
+    public function testCommandNotExistsError()
+    {
+        $token = uniqid();
+        config(['remotecron.token' => $token]);
+
+        $response = $this->json('get', 'remote/cron', [
+            'token' => $token,
+            'command' => self::TestCommand,
+        ]);
+
+        $response->assertStatus(422);
+        $content = $response->getContent();
+        $this->assertJson($content);
+        $this->assertStringContainsString("The command test:test doesn't exists.", $content);
+    }
+
+    public function testParameterNotJsonError()
+    {
+        $this->createTestCommand('{info}');
+        $token = uniqid();
+        config(['remotecron.token' => $token]);
+
+        $response = $this->json('get', 'remote/cron', [
+            'token' => $token,
+            'command' => self::TestCommand,
+            'parameters' => 'Wrong Value Not Json',
+        ]);
+
+        $response->assertStatus(422);
+        $content = $response->getContent();
+        $this->assertJson($content);
+        $this->assertStringContainsString('The parameters field must be a valid JSON string.', $content);
+    }
+
     protected function createTestCommand(string $params = '')
     {
-        Artisan::command(self::TestCommand.$params, fn () => '');
+        Artisan::command(self::TestCommand.($params ? ' '.$params : ''), fn () => '');
     }
 }

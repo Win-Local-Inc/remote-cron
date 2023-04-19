@@ -2,7 +2,7 @@
 
 return [
     'middleware' => [
-        'throttle:cron',
+        'throttle:remotecron',
         WinLocal\RemoteCron\Middleware\TokenAuth::class,
     ],
     'path' => env('WINLOCAL_CRON_PATH', 'remote/cron'),

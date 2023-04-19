@@ -14,5 +14,5 @@ use WinLocal\RemoteCron\Controllers\RemoteCronController;
 |
 */
 
-Route::get(config('remotecron.path'), [RemoteCronController::class, 'cron'])
+Route::get(config('remotecron.path'), RemoteCronController::class)
     ->middleware(config('remotecron.middleware'));
